@@ -1,7 +1,12 @@
-public class Employee {
+
+enum Department  {it , HR , accountant};
+enum EmployeeType {Manager , Salaried , Hourly};
+
+public abstract class Employee {
     private int empId;
     private String name;
-    private String department;
+    private Department department;
+
     private double salary;
     private double bonus;
     private boolean resident;
@@ -10,7 +15,7 @@ public class Employee {
     public Employee(){
         empId = 100;
         name = "no name";
-        department = "not assigned yet";
+        department = Department.HR;
         salary = 5000;
         bonus = 300;
         resident = true;
@@ -31,11 +36,11 @@ public class Employee {
 
     }
 
-    public Employee (int id , String name , String depart , double salary , double bonus , boolean resident){
+    public Employee (int id , String name , Department department , double salary , double bonus , boolean resident){
 
 
         this (id, name, resident);
-        this.department = (depart == null || depart.isBlank())?"no department":depart;
+        this.department = department;
         this.salary = (salary < 0) ? 0 : salary;
         this.bonus = (bonus < 0)?0:bonus;
 
@@ -51,8 +56,8 @@ public class Employee {
             this.bonus = bonus;
     }
 
-    public void setDepartment(String department) {
-        if (department != null && !department.isBlank())
+    public void setDepartment(Department department) {
+        if (department != null )
             this.department = department;
     }
 
@@ -64,6 +69,8 @@ public class Employee {
         return name;
     }
 
+    public abstract EmployeeType getEmployeeType();
+
     public double getSalary() {
         return salary;
     }
@@ -72,7 +79,7 @@ public class Employee {
         return bonus;
     }
 
-    public String getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
@@ -80,13 +87,13 @@ public class Employee {
         return resident;
     }
 
-    public double totalSalary (){
-        return salary + bonus;
-}
+    public abstract double totalSalary ();
+
     public void printEmpData (){
         System.out.println("ID: " + empId);
         System.out.println("NAME: " + name);
         System.out.println("DEPART: " + department);
+        System.out.println("Type: " + this.getEmployeeType());
         System.out.println("SALARY: " + salary);
         System.out.println("BONUS: " + bonus);
         System.out.println("TOTAL SALARY: "+this.totalSalary());

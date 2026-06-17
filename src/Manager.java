@@ -6,8 +6,8 @@ public class Manager extends Employee{
         allowance = 1000;
     }
 
-    public Manager (int id , String name , String depart , double salary , double bonus , boolean resident , double allowance){
-        super(id, name, depart, salary, bonus, resident);
+    public Manager (int id , String name , Department department, double salary , double bonus , boolean resident , double allowance){
+        super(id, name, department,salary, bonus, resident);
         this.allowance = allowance;
     }
 
@@ -19,8 +19,12 @@ public class Manager extends Employee{
         return allowance;
     }
 
-    public double totalIncome(){
+    public double totalSalary(){
         return getSalary() + getBonus() + allowance;
     }
 
+    @Override
+    public EmployeeType getEmployeeType() {
+        return EmployeeType.Manager;
+    }
 }
